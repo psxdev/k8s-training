@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-rq
+  namespace: team-api
+spec:
+  hard:
+    limits.cpu: 400m
+    limits.memory: 0.8Gi

@@ -1,0 +1,9 @@
+apiVersion: v1  
+kind: ConfigMap  
+metadata:  
+  name: wordpress-configmap
+  namespace: exercise-02
+data:
+  WORDPRESS_FIRST_NAME: Antonio Jose
+  WORDPRESS_LAST_NAME: Ramos Marquez
+  WORDPRESS_BLOG_NAME: bigboss's blog for exercise-02

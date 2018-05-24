@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manager-rb
+  namespace: team-api
+subjects:
+- kind: Group
+  name: teach-lead # Name is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: manager-cr
+  apiGroup: rbac.authorization.k8s.io

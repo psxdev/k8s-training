@@ -1,0 +1,60 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: exercise-02
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: backend
+    spec:
+      containers:
+      - name: mariadb
+        image: bitnami/mariadb:latest
+        ports:
+        - name: mysql-port
+          containerPort: 3306
+        env:
+          #- name: ALLOW_EMPTY_PASSWORD
+          #  value: "yes"
+          - name: MARIADB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mariadb-secret
+                key: mariadb-root-password
+          - name: MARIADB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: mariadb-secret
+                key: mariadb-database-name
+          - name: MARIADB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mariadb-secret
+                key: mariadb-database-user
+          - name: MARIADB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mariadb-secret
+                key: mariadb-database-password
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "mysqladmin ping -p${MARIADB_PASSWORD}"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "mysql -u${MARIADB_USER} -p${MARIADB_PASSWORD} -e \"SELECT 1;\""
+          initialDelaySeconds: 60
