@@ -115,7 +115,29 @@ calico-node-m2pl2                          2/2       Running   0          2m
 kube-dns-7cc76cdf5f-pxjqb                  2/3       Running   1          11h
 tiller-deploy-8588b5d864-xhwzj             1/1       Running   0          23m
 ```
+Finally figured out problem security group on AWS, added additional ports for dns probe and kubelet inconming traffic
 
+## step 23 nfs
+23-nfs.bash
+## step 24 trefick ingress
+24-traefick.bash
+## step 25 dashboard
+25-dashboard.bash
+
+and finally
+
+```
+kubectl get pods -n kube-system
+NAME                                       READY     STATUS    RESTARTS   AGE
+calico-kube-controllers-5b85d756c6-l7ljz   1/1       Running   2          6h
+calico-node-6x4nr                          2/2       Running   0          6h
+calico-node-m2pl2                          2/2       Running   2          6h
+kube-dns-7cc76cdf5f-8mk2p                  3/3       Running   23         1h
+kubernetes-dashboard-7d5dcdb6d9-hgs5f      1/1       Running   0          5m
+nfs-provisioner-nfs-server-provisioner-0   1/1       Running   0          55m
+tiller-deploy-8588b5d864-xhwzj             1/1       Running   0          6h
+traefik-ingress-6577bd8fff-kkrq2           1/1       Running   0          35m
+```
 
 
 
