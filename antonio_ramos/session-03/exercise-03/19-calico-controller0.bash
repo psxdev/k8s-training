@@ -3,7 +3,7 @@
 source ./common.bash
 
 
-kubectl apply -f mycalico.yaml
+kubectl apply -f calico.yaml
 
 # The above will not work because of the non-privileged container, so we need 
 # to reconfigure kubelet and kube-apiserver. Execute the following on each worker
@@ -74,4 +74,4 @@ systemctl restart kube-scheduler.service
 # Now try deploying again
 #
 kubectl apply -f rbac.yaml
-kubectl apply -f mycalico.yaml
+kubectl apply -f calico.yaml
